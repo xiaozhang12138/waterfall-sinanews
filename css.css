@@ -5,11 +5,12 @@
 }
 a{
     text-decoration: none;
+    color: #000;
 }
 .news {
-    text-align: center;
     margin: 0 auto;
     max-width: 900px;
+    min-width: 600px;
     border: 2px solid #fff;
 }
 .list {
@@ -20,7 +21,27 @@ a{
 }
 
 .list li {
+    text-align: center;
+    width: 280px;
     border: 2px solid rgb(233,233,233);
     list-style:none;
     position: absolute;
+}
+.list li img{
+    padding: 10px 5px 5px 5px;
+    width: 260px;
+}
+.list li h4{
+    font-size: 18px;
+}
+.list li p{
+    padding-top: 15px;
+    padding-bottom: 10px;
+    font-size: 12px;
+    line-height: 1.8;
+    color: #777371;
+}
+.list li h4,.list li p{
+    text-align: left;
+    padding-left: 10px;
 }
