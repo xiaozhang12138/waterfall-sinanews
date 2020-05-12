@@ -37,7 +37,7 @@ function start(){
 }
 
 
-
+//当页面滚动的时候。
 $(window).scroll(function(){
     if(!isDataArrive) return
 
@@ -49,6 +49,7 @@ $(window).scroll(function(){
 //tips 原接口更换为新接口
 //https://photo.sina.cn/aj/v2/index?cate=military&page=1&pagesize=5
 
+//获取数据的接口，使用回调函数，传出数据，并拼接
 function getData(callback){
     $.ajax({
         url: 'https://photo.sina.cn/aj/v2/index?cate=military',
@@ -68,7 +69,7 @@ function getData(callback){
     });
 }
 
-//
+//封装模板的接口，传入item更改数据
 function getNode(item){
     var tpl = ''
     tpl += '<li class="item">';
@@ -81,6 +82,7 @@ function getNode(item){
     return $(tpl)
 }
 
+//这是瀑布流布局的函数。
 function waterFallPlace($node){
 
     var idx = 0,
