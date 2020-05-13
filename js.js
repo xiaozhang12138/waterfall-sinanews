@@ -32,14 +32,32 @@
 //1. 获取数据
 //2. 把数据变为 Dom，通过瀑布流的方式放到页面上
 //3. 当滚动到底部的时候， --》 1
-
+var jsnone = [];
+//一个li的宽度
+var liwiths = $('.list li').outerWidth(true);
+//获得列
+var colNum = parseInt($('.list').width() / liwiths)
+//遍历放置0.
+for (var i = 0; i < colNum; i++) {
+    jsnone[i] = 0;
+}
 
 start()
-
-function start(){
-    getData(function(newsList){
-        console.log(newsList);
+function start() {
+    getData(function (newsList) {
+        //console.log(newsList);
+        $.each(newsList, function (idx, news) {
         
+            //遍历之后拼接陈DOM了。
+            var $node = getNode(news)
+            //拼接之后瀑布流放到页面上
+            $node.find('img').on('load',function(){
+            $('.list').append($node);
+            //console.log($node, 'loaded...')
+            waterFallPlace($node)
+            })
+        })
+
     })
 
 }
@@ -86,38 +104,29 @@ function getNode(item) {
 
 
 //瀑布流的数据加载，需要传入什么数据，返回什么数据，需要传入
-function waterFallPlace($node) {
-    var jsnone = [];
-    var imgwiths = $('.waterfall img').outerWidth(true);
-    //图片宽度
-    var rows = Math.floor($('.waterfall').width() / imgwiths);
-    //页面宽度除以图片宽度，得到数组列数
-    for (var i = 0; i < rows; i++) {
-        jsnone[i] = 0;
-    }
-    //遍历数组，给每个列的宽度都归零
-    $('.waterfall img').on('load', function () {
+function waterFallPlace($nodes) {
 
-        console.log(jsnone);
-        //假定第一项是最小值。
-        var minValue = jsnone[0];
-        var minIndex = 0;
-        //遍历数组每一项，对比，得到最小值。
-        for (i = 0; i < rows; i++) {
-            if (minValue > jsnone[i]) {
-                minValue = jsnone[i];
-                minIndex = i;
-            }
+    //console.log($nodes);
+    //假定第一项是最小值。
+    var minValue = jsnone[0];
+    var minIndex = 0;
+    //遍历数组每一项，对比，得到最小值。
+    for (i = 0; i < colNum; i++) {
+        if (minValue > jsnone[i]) {
+            minValue = jsnone[i];
+            minIndex = i;
         }
-        //设置每一项的值，需要绝对定位辅助，
-        $(this).css({
-            top: jsnone[minIndex],
-            left: minIndex * imgwiths
-        });
-        //最后给那个最小项加上，目前排列的元素的高度。
-        jsnone[minIndex] += $(this).outerHeight(true);
+    }
+    
+    //设置每一项的值，需要绝对定位辅助，
+    $nodes.css({
+        top: jsnone[minIndex],
+        left: minIndex * liwiths
     });
-
+    
+    //最后给那个最小项加上，目前排列的元素的高度。
+    jsnone[minIndex] += $nodes.outerHeight(true);
+    console.log(jsnone);
 }
 
 
