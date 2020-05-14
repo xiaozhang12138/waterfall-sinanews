@@ -1,37 +1,11 @@
 
 
-//以下是封装组装元素的。
-// function assemble(res) {
-//     var _this = this;
-//     var uls = $('ul');
-//     res.forEach(function (movie) {
-//         var tpl = `<li>
-//             <a href="">
-//             <img src="https://k.sinaimg.cn/n/mil/transform/200/w600h400/20200321/c665-ireifzh2305871.jpg/w640slw.jpg" alt="">
-//             <h4>美航母第二次访越 却不停靠</h4>
-//             <p>不爱红装爱武装！95后网红小姐姐成为火箭军士官</p>
-//             </a>
-//         </li>`;
-//         var $ndoe = $(tpl);
-//         // console.log($(tpl))
-//         $ndoe.find('li img').attr('src', movie.thumb);
-//         $ndoe.find('li a').attr('href', movie.url);
-//         $ndoe.find('li h4').text(movie.stitle);
-//         $ndoe.find('li h4').text(movie.title);
-//         // _this.uls.eq(0).append($node)
-//     })
-//
-//     console.log(_this.uls)
-// }
-
-
-
-
-
-
 //1. 获取数据
 //2. 把数据变为 Dom，通过瀑布流的方式放到页面上
 //3. 当滚动到底部的时候， --》 1
+var curPage = 1;
+var perPageCount = 10;
+var isDataArrive = true;
 var jsnone = [];
 //一个li的宽度
 var liwiths = $('.list li').outerWidth(true);
@@ -43,9 +17,21 @@ for (var i = 0; i < colNum; i++) {
 }
 
 start()
+
+
+//当页面滚动的时候。
+$(window).scroll(function(){
+    if(!isDataArrive) return
+
+    if(isVisible($('.list'))){
+        start()
+    }
+})
+
 function start() {
     getData(function (newsList) {
         //console.log(newsList);
+        isDataArrive = true;
         $.each(newsList, function (idx, news) {
         
             //遍历之后拼接陈DOM了。
@@ -59,17 +45,9 @@ function start() {
         })
 
     })
+    isDataArrive = false;
 
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -80,11 +58,12 @@ function getData(callback) {
         dataType: 'jsonp',
         jsonp: 'callback',
         data: {
-            pagesize: 10,
-            page: 1
+            pagesize: perPageCount,
+            page: curPage
         }
     }).done(function (ret) {
         callback(ret.data)
+        curPage++
     })
 }
 
@@ -103,7 +82,7 @@ function getNode(item) {
 
 
 
-//瀑布流的数据加载，需要传入什么数据，返回什么数据，需要传入
+//瀑布流的数据加载
 function waterFallPlace($nodes) {
 
     //console.log($nodes);
@@ -126,19 +105,20 @@ function waterFallPlace($nodes) {
     
     //最后给那个最小项加上，目前排列的元素的高度。
     jsnone[minIndex] += $nodes.outerHeight(true);
-    console.log(jsnone);
+    $('.list').height(Math.max.apply(null,jsnone));
+
 }
 
 
 
 //懒加载的函数结构
-function pubuliu($node) {
-    $node.each(function () {
-        var _this = $(this)
-        if (_show(_this)) {
-            setTimeout(function () {
-                _put(_this)
-            }, 1000)
+function isVisible($el) {
+    var scrollH = $(window).scrollTop(),
+        winH = $(window).height(),
+        top = $el.offset().top;
+        if(top < winH + scrollH){
+            return true;
+        }else{
+            return false;
         }
-    })
 }
