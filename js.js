@@ -3,14 +3,14 @@
 //1. 获取数据
 //2. 把数据变为 Dom，通过瀑布流的方式放到页面上
 //3. 当滚动到底部的时候， --》重复 1
+//初始第一页
 var curPage = 1;
 var perPageCount = 10;
 var isDataArrive = true;
 var jsnone = [];
-//一个li的宽度
-var liwiths = $('.list li').outerWidth(true);
-//获得列
-var colNum = parseInt($('.list').width() / liwiths)
+
+//获得列的数量
+var colNum = parseInt($('.list').width() / $('.list li').outerWidth(true))
 //遍历放置0.
 for (var i = 0; i < colNum; i++) {
     jsnone[i] = 0;
@@ -21,13 +21,14 @@ start()
 
 //当页面滚动的时候。
 $(window).scroll(function(){
-    if(!isDataArrive) return
+    if(!scroll) return
 
     if(isVisible($('.list'))){
         start()
     }
 })
 
+//拼装并且封装到执行上面
 function start() {
     getData(function (newsList) {
         //console.log(newsList);
@@ -100,7 +101,7 @@ function waterFallPlace($nodes) {
     //设置每一项的值，需要绝对定位辅助，
     $nodes.css({
         top: jsnone[minIndex],
-        left: minIndex * liwiths
+        left: minIndex * $('.list li').outerWidth(true)
     });
     
     //最后给那个最小项加上，目前排列的元素的高度。
