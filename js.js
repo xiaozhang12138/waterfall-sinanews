@@ -2,7 +2,7 @@
 
 //1. 获取数据
 //2. 把数据变为 Dom，通过瀑布流的方式放到页面上
-//3. 当滚动到底部的时候， --》 1
+//3. 当滚动到底部的时候， --》重复 1
 var curPage = 1;
 var perPageCount = 10;
 var isDataArrive = true;

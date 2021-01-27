@@ -9,41 +9,41 @@ a{
 }
 .news {
     margin: 0 auto;
-    width: 950px;
+    width: 85vw;
     border: 2px solid #fff;
     position: relative;
 }
 .list {
     position: relative;
     list-style:none;
-    top:20px;
+    top:1.01vw;
 }
 
 .list li {
-    margin: 10px;
+    margin: 0.926vw;
     text-align: center;
-    width: 280px;
+    width: 25.926vw;
     border: 1px solid rgb(233,233,233);
     list-style:none;
     position: absolute;
 }
 .list li img{
-    padding: 10px 5px 5px 5px;
-    width: 260px;
+    padding: 0.926vw 0.463vw 0.463vw 0.463vw;
+    width: 24.074vw;
 }
 .list li h4{
-    font-size: 18px;
+    font-size: 1.667vw;
 }
 .list li p{
-    padding-top: 15px;
-    padding-bottom: 10px;
-    font-size: 12px;
+    padding-top: 1.389vw;
+    padding-bottom: 0.926vw;
+    font-size: 1.111vw;
     line-height: 1.8;
     color: #777371;
 }
 .list li h4,.list li p{
     text-align: left;
-    padding-left: 10px;
+    padding-left: 0.926vw;
 }
 #load {
     visibility: hidden;
