@@ -31,13 +31,13 @@ start()
 //拼装并且封装到执行上面
 function start() {
     getData(function (newsList) {
-        //console.log(newsList);
+        console.log(newsList);
         isDataArrive = true;
         $.each(newsList, function (idx, news) {
         
-            //遍历之后拼接陈DOM了。
+            //遍历之后，单个拼接成DOM了。
             var $node = getNode(news)
-            //拼接之后瀑布流放到页面上
+            //拼接之后，通过成品函数瀑布流放到页面上
             $node.find('img').on('load',function(){
             $('.list').append($node);
             //console.log($node, 'loaded...')
@@ -114,7 +114,9 @@ function waterFallPlace($nodes) {
 
 //懒加载的函数结构
 function isVisible($el) {
+    //滚动的距离
     var scrollH = $(window).scrollTop(),
+    
         winH = $(window).height(),
         top = $el.offset().top;
         if(top < winH + scrollH){
