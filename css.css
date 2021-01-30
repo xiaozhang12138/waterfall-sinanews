@@ -10,7 +10,7 @@ a{
 .news {
     margin: 0 auto;
     width: 85vw;
-    border: 2px solid #fff;
+    border: 2px solid rgb(117, 106, 106);
     position: relative;
 }
 .list {
