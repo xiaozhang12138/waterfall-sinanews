@@ -20,13 +20,13 @@ start()
 
 
 //当页面滚动的时候。
-// $(window).scroll(function(){
-//     if(!scroll) return
+$(window).scroll(function(){
+    if(!scroll) return
 
-//     if(isVisible($('.list'))){
-//         start()
-//     }
-// })
+    if(isVisible($('.list'))){
+        start()
+    }
+})
 
 //拼装并且封装到执行上面
 function start() {
