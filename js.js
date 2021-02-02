@@ -23,7 +23,7 @@ start()
 $(window).scroll(function(){
     if(!scroll) return
 
-    if(isVisible($('.list'))){
+    if(isVisible()){
         start()
     }
 })
@@ -112,16 +112,15 @@ function waterFallPlace($nodes) {
 
 
 
-//懒加载的函数结构
-function isVisible($el) {
-    //滚动的距离
+//懒加载的判断
+function isVisible() {
     var scrollH = $(window).scrollTop(),
-    
         winH = $(window).height(),
-        top = $el.offset().top;
-        if(top < winH + scrollH){
+        top = $(document).height();
+        if(top < winH + scrollH +100 ){
             return true;
         }else{
             return false;
         }
+        
 }
